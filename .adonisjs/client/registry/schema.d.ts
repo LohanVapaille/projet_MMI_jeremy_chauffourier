@@ -72,6 +72,58 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/session_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'channels.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/channels'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['index']>>>
+    }
+  }
+  'channels.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/channels/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['show']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['show']>>>
+    }
+  }
+  'channels.store': {
+    methods: ["POST"]
+    pattern: '/channels'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/channel').createChannelValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/channel').createChannelValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'messages.store': {
+    methods: ["POST"]
+    pattern: '/channels/:channelId/messages'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/message').createMessageValidator)>>
+      paramsTuple: [ParamValue]
+      params: { channelId: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/message').createMessageValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/message_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/message_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/message_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'dashboard': {
     methods: ["GET","HEAD"]
     pattern: '/dashboard'
@@ -80,9 +132,9 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
-      rawResponse: ExtractRawResponse<unknown>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/channel_controller').default['index']>>>
     }
   }
   'session.destroy': {
@@ -96,6 +148,45 @@ export interface Registry {
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
+    }
+  }
+  'event_stream': {
+    methods: ["GET","HEAD"]
+    pattern: '/__transmit/events'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+      rawResponse: ExtractRawResponse<unknown>
+    }
+  }
+  'subscribe': {
+    methods: ["POST"]
+    pattern: '/__transmit/subscribe'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+      rawResponse: ExtractRawResponse<unknown>
+    }
+  }
+  'unsubscribe': {
+    methods: ["POST"]
+    pattern: '/__transmit/unsubscribe'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+      rawResponse: ExtractRawResponse<unknown>
     }
   }
 }

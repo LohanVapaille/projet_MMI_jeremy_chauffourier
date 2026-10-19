@@ -36,6 +36,30 @@ const routes = {
     tokens: [[0,"login"]],
     types: placeholder as Registry['session.store']['types'],
   },
+  'channels.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/channels',
+    tokens: [[0,"channels"]],
+    types: placeholder as Registry['channels.index']['types'],
+  },
+  'channels.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/channels/:id',
+    tokens: [[0,"channels"],[1,"id"]],
+    types: placeholder as Registry['channels.show']['types'],
+  },
+  'channels.store': {
+    methods: ["POST"],
+    pattern: '/channels',
+    tokens: [[0,"channels"]],
+    types: placeholder as Registry['channels.store']['types'],
+  },
+  'messages.store': {
+    methods: ["POST"],
+    pattern: '/channels/:channelId/messages',
+    tokens: [[0,"channels"],[1,"channelId"],[0,"messages"]],
+    types: placeholder as Registry['messages.store']['types'],
+  },
   'dashboard': {
     methods: ["GET","HEAD"],
     pattern: '/dashboard',
@@ -47,6 +71,24 @@ const routes = {
     pattern: '/logout',
     tokens: [[0,"logout"]],
     types: placeholder as Registry['session.destroy']['types'],
+  },
+  'event_stream': {
+    methods: ["GET","HEAD"],
+    pattern: '/__transmit/events',
+    tokens: [[0,"__transmit"],[0,"events"]],
+    types: placeholder as Registry['event_stream']['types'],
+  },
+  'subscribe': {
+    methods: ["POST"],
+    pattern: '/__transmit/subscribe',
+    tokens: [[0,"__transmit"],[0,"subscribe"]],
+    types: placeholder as Registry['subscribe']['types'],
+  },
+  'unsubscribe': {
+    methods: ["POST"],
+    pattern: '/__transmit/unsubscribe',
+    tokens: [[0,"__transmit"],[0,"unsubscribe"]],
+    types: placeholder as Registry['unsubscribe']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 

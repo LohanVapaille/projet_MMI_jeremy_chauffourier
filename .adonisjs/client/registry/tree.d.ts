@@ -12,5 +12,16 @@ export interface ApiDefinition {
     store: typeof routes['session.store']
     destroy: typeof routes['session.destroy']
   }
+  channels: {
+    index: typeof routes['channels.index']
+    show: typeof routes['channels.show']
+    store: typeof routes['channels.store']
+  }
+  messages: {
+    store: typeof routes['messages.store']
+  }
   dashboard: typeof routes['dashboard']
+  eventStream: typeof routes['event_stream']
+  subscribe: typeof routes['subscribe']
+  unsubscribe: typeof routes['unsubscribe']
 }
